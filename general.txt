@@ -1,0 +1,55 @@
+import { useEffect, useState } from 'react';
+import productsData from '../assets/products.json';
+
+function Products() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts(productsData.products);
+  }, []);
+
+  return (
+    <div>
+      <h1>Ürünlerimiz</h1>
+      <div className="products">
+        {products.map((product) => (
+          <div key={product.id}>
+            <img src={product.imageUrl} alt={product.name} />
+            <h2>{product.name}</h2>
+            <p>{product.description}</p>
+            <p>Fiyat: {product.price} TL</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default Products;
+
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import Products from './pages/Products';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      <Footer />
+    </Router>
+  );
+}
+
+export default App;
+
